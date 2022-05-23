@@ -11,7 +11,6 @@ export const pssecret = passportJwtSecret({
     return axios
       .get(jwksUri)
       .then((res) => {
-        console.log('>> ', res.data);
         return res.data as { keys: any };
       })
       .catch((err) => {
