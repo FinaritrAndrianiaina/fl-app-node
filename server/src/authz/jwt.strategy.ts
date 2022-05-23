@@ -11,16 +11,16 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     super({
       secretOrKeyProvider: pssecret,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      audience: config.AUTH0_AUDIENCE,
-      issuer: `${config.AUTH0_ISSUER_URL}`,
-      algorithms: ['RS256'],
+      audience: 'http://localhost:3000',
+      issuer: 'https://learn-auth-today.eu.auth0.com/',
+      algorithms: ['RS256']
     });
     this.logger.log('INIT JWT');
   }
 
   validate(payload: any, done: any): any {
-    done(null, payload);
     this.logger.debug(payload.req);
+    done(null, payload);
     return payload;
   }
 }
