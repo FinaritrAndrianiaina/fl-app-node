@@ -15,3 +15,7 @@ model Todo {
   isDone Boolean? @default(false)
   tasks  String
 }
+
+model Profile {
+    sub String @id @unique
+}

@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
-import { LogreqInterceptor } from './logreq.interceptor';
+import * as morgan from 'morgan';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  app.useGlobalInterceptors(new LogreqInterceptor());
+  app.use(morgan('dev'));
   await app.listen(3000);
 }
 const logger = new Logger('[MAIN APP]');

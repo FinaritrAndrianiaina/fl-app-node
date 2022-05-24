@@ -1,5 +1,6 @@
 import { passportJwtSecret } from 'jwks-rsa';
 import axios from 'axios';
+import config from '../config';
 
 export const pssecret = passportJwtSecret({
   cache: true,
@@ -18,6 +19,6 @@ export const pssecret = passportJwtSecret({
         return {} as { keys: any };
       });
   },
-  jwksRequestsPerMinute: 1,
-  jwksUri: `https://learn-auth-today.eu.auth0.com/.well-known/jwks.json`,
+  jwksRequestsPerMinute: 5,
+  jwksUri: `${config.AUTH0_ISSUER_URL}.well-known/jwks.json`,
 });
