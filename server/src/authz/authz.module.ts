@@ -7,7 +7,6 @@ import { HttpModule } from '@nestjs/axios';
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    CacheModule.register({ ttl: 200 }),
     HttpModule.register({}),
   ],
   exports: [PassportModule],

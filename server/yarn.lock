@@ -863,7 +863,15 @@
     "@types/connect" "*"
     "@types/node" "*"
 
-"@types/cache-manager@^3.4.3":
+"@types/cache-manager-redis-store@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/cache-manager-redis-store/-/cache-manager-redis-store-2.0.1.tgz#42cf1400a6dbf42d06fbcbd82e04b0a44856e50a"
+  integrity sha512-8QuccvcPieh1xM/5kReE76SfdcIdEB0ePc+54ah/NBuK2eG+6O50SX4WKoJX81UxGdW3sh/WlDaDNqjnqxWNsA==
+  dependencies:
+    "@types/cache-manager" "*"
+    "@types/redis" "^2.8.0"
+
+"@types/cache-manager@*", "@types/cache-manager@^3.4.3":
   version "3.4.3"
   resolved "https://registry.npmjs.org/@types/cache-manager/-/cache-manager-3.4.3.tgz"
   integrity sha512-71aBXoFYXZW4TnDHHH8gExw2lS28BZaWeKefgsiJI7QYZeJfUEbMKw6CQtzGjlYQcGIWwB76hcCrkVA3YHSvsw==
@@ -983,7 +991,7 @@
 
 "@types/morgan@^1.9.3":
   version "1.9.3"
-  resolved "https://registry.yarnpkg.com/@types/morgan/-/morgan-1.9.3.tgz#ae04180dff02c437312bc0cfb1e2960086b2f540"
+  resolved "https://registry.npmjs.org/@types/morgan/-/morgan-1.9.3.tgz"
   integrity sha512-BiLcfVqGBZCyNCnCH3F4o2GmDLrpy0HeBVnNlyZG4fo88ZiE9SoiBe3C+2ezuwbjlEyT+PDZ17//TAlRxAn75Q==
   dependencies:
     "@types/node" "*"
@@ -1012,6 +1020,13 @@
   version "1.2.4"
   resolved "https://registry.npmjs.org/@types/range-parser/-/range-parser-1.2.4.tgz"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
+
+"@types/redis@^2.8.0":
+  version "2.8.32"
+  resolved "https://registry.yarnpkg.com/@types/redis/-/redis-2.8.32.tgz#1d3430219afbee10f8cfa389dad2571a05ecfb11"
+  integrity sha512-7jkMKxcGq9p242exlbsVzuJb57KqHRhNl4dHoQu2Y5v9bCAbtIXXH0R3HleSQW4CTOqpHIYUW3t6tpUj4BVQ+w==
+  dependencies:
+    "@types/node" "*"
 
 "@types/serve-static@*":
   version "1.13.10"
@@ -1620,6 +1635,13 @@ bytes@3.1.2:
   resolved "https://registry.npmjs.org/bytes/-/bytes-3.1.2.tgz"
   integrity sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==
 
+cache-manager-redis-store@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/cache-manager-redis-store/-/cache-manager-redis-store-2.0.0.tgz"
+  integrity sha512-bWLWlUg6nCYHiJLCCYxY2MgvwvKnvlWwrbuynrzpjEIhfArD2GC9LtutIHFEPeyGVQN6C+WEw+P3r+BFBwhswg==
+  dependencies:
+    redis "^3.0.2"
+
 cache-manager@^3.6.3:
   version "3.6.3"
   resolved "https://registry.npmjs.org/cache-manager/-/cache-manager-3.6.3.tgz"
@@ -1950,6 +1972,11 @@ delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz"
   integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
+
+denque@^1.5.0:
+  version "1.5.1"
+  resolved "https://registry.npmjs.org/denque/-/denque-1.5.1.tgz"
+  integrity sha512-XwE+iZ4D6ZUB7mfYRMb5wByE8L74HCn30FBN7sWnXksWc1LO1bPDl67pBR9o/kC4z/xSNAwkMYcGgqDV3BE3Hw==
 
 depd@2.0.0, depd@~2.0.0:
   version "2.0.0"
@@ -4181,6 +4208,33 @@ rechoir@^0.6.2:
   integrity sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q=
   dependencies:
     resolve "^1.1.6"
+
+redis-commands@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.npmjs.org/redis-commands/-/redis-commands-1.7.0.tgz"
+  integrity sha512-nJWqw3bTFy21hX/CPKHth6sfhZbdiHP6bTawSgQBlKOVRG7EZkfHbbHwQJnrE4vsQf0CMNE+3gJ4Fmm16vdVlQ==
+
+redis-errors@^1.0.0, redis-errors@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/redis-errors/-/redis-errors-1.2.0.tgz"
+  integrity sha1-62LSrbFeTq9GEMBK/hUpOEJQq60=
+
+redis-parser@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/redis-parser/-/redis-parser-3.0.0.tgz"
+  integrity sha1-tm2CjNyv5rS4pCin3vTGvKwxyLQ=
+  dependencies:
+    redis-errors "^1.0.0"
+
+redis@^3.0.2:
+  version "3.1.2"
+  resolved "https://registry.npmjs.org/redis/-/redis-3.1.2.tgz"
+  integrity sha512-grn5KoZLr/qrRQVwoSkmzdbw6pwF+/rwODtrOr6vuBRiR/f3rjSTGupbF90Zpqm2oenix8Do6RV7pYEkGwlKkw==
+  dependencies:
+    denque "^1.5.0"
+    redis-commands "^1.7.0"
+    redis-errors "^1.2.0"
+    redis-parser "^3.0.0"
 
 reflect-metadata@^0.1.13:
   version "0.1.13"

@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { HttpService } from '@nestjs/axios';
-import { isEmpty } from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 import { firstValueFrom, map } from 'rxjs';
 import config from '../config';
 import { Request } from 'express';
@@ -34,12 +34,14 @@ export class JwtGuard extends AuthGuard('jwt') {
     let userinfo = await this.cacheManager.get<UserInfo>(request.user.sub);
     this.logger.debug(userinfo, request.user.sub);
     if (isEmpty(userinfo)) {
-      this.logger.debug('CACHING USER');
       const userinfo_ = await this.fetchUserInfo(request);
-      userinfo = await this.cacheManager.set<UserInfo>(
+      userinfo = userinfo_;
+      const ok = await this.cacheManager.set<UserInfo>(
         request.user.sub,
         userinfo_,
+        { ttl: 500 },
       );
+      this.logger.debug(`REDIS CACHING USER ${ok}`);
       this.logger.debug(userinfo);
     }
     request.user.userinfo = userinfo;
