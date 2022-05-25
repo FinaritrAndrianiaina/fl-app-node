@@ -54,12 +54,14 @@
       "active": false
     },
     "windows": [
-      {
+      { 
         "fullscreen": false,
         "height": 600,
         "resizable": true,
         "title": "Todo App",
-        "width": 800
+        "width": 800,
+        "decorations": false,
+        "transparent": true
       }
     ]
   }

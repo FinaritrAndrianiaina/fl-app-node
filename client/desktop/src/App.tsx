@@ -1,14 +1,16 @@
-import {useState} from 'react'
+import { Fragment, useState } from "react";
+import { Navbar } from "./Navbar";
 
 function App() {
-    const [counts, setCount] = useState(0)
+  const [counts, setCount] = useState(0);
 
-    return (
-        <div>
-            <p>Test </p>
-            <button className={"btn btn-primary"}>Salut</button>
-        </div>
-    )
+  return (
+    <Fragment>
+      <Navbar />
+      <p>Test </p>
+      <button className={"btn btn-primary"}>Salut</button>
+    </Fragment>
+  );
 }
 
-export default App
+export default App;
