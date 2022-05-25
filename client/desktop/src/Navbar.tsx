@@ -35,7 +35,7 @@ export function Navbar() {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <a className="btn btn-ghost normal-case text-xl">Todo List 🚀</a>
       </div>
       <div data-tauri-drag-region className="navbar-end">
         <button className="btn btn-ghost btn-circle" onClick={() => appWindow.minimize()} ><Minus /></button>
