@@ -8,11 +8,13 @@ import {
 } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { HttpService } from '@nestjs/axios';
-import { isEmpty, isEqual } from 'lodash';
+import { isEmpty, isEqual, keys } from 'lodash';
 import { firstValueFrom, map } from 'rxjs';
 import config from '../config';
 import { Request } from 'express';
 import { JwtPayload, UserInfo } from './interfaces/JwtPayload';
+import { UserService } from '../user/user.service';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class JwtGuard extends AuthGuard('jwt') {
@@ -21,6 +23,7 @@ export class JwtGuard extends AuthGuard('jwt') {
   constructor(
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private httpService: HttpService,
+    private userService: UserService,
   ) {
     super();
   }
@@ -31,21 +34,33 @@ export class JwtGuard extends AuthGuard('jwt') {
     if (isEmpty(request.user) || isEmpty(request.headers.authorization)) {
       return false;
     }
-    let userinfo = await this.cacheManager.get<UserInfo>(request.user.sub);
-    this.logger.debug(userinfo, request.user.sub);
+    let userinfo = await this.cacheManager.get<UserInfo>(
+      request.user['https://example.com/email'],
+    );
+    this.logger.debug(userinfo);
     if (isEmpty(userinfo)) {
-      const userinfo_ = await this.fetchUserInfo(request);
-      userinfo = userinfo_;
-      const ok = await this.cacheManager.set<UserInfo>(
-        request.user.sub,
-        userinfo_,
-        { ttl: 500 },
-      );
-      this.logger.debug(`REDIS CACHING USER ${ok}`);
-      this.logger.debug(userinfo);
+      userinfo = await this.fetchUserInfo(request);
+      await this.saveUser(userinfo);
     }
     request.user.userinfo = userinfo;
     return true;
+  }
+
+  private async saveUser(userinfo: UserInfo) {
+    const ok = await this.cacheManager.set<UserInfo>(userinfo.email, userinfo, {
+      ttl: 18000,
+    });
+    const user: User = {
+      sub: userinfo.sub,
+      updated_at: new Date(userinfo.updated_at),
+      email: userinfo.email,
+      email_verified: userinfo.email_verified,
+      name: userinfo.name,
+      nickname: userinfo.nickname,
+      picture: userinfo.picture,
+    };
+    await this.userService.upsertUser(user);
+    this.logger.debug(`REDIS CACHING USER ${ok}`);
   }
 
   private async fetchUserInfo(request: Request & { user: JwtPayload }) {

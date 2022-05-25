@@ -7,6 +7,7 @@ export interface JwtPayload {
   azp: string;
   scope: string;
   userinfo?: UserInfo;
+  'https://example.com/email': string;
 }
 
 export interface UserInfo {

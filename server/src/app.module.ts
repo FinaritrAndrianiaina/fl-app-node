@@ -8,7 +8,9 @@ import { APP_FILTER } from '@nestjs/core';
 import { ErrorFilterFilter } from './error_filter.filter';
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
+import { UserModule } from './user/user.module';
 import * as redisStore from 'cache-manager-redis-store';
+import { ErrorFilter } from './error.filter';
 
 @Module({
   imports: [
@@ -19,9 +21,10 @@ import * as redisStore from 'cache-manager-redis-store';
       isGlobal: true,
       store: redisStore,
       socket: { host: 'localhost', port: 6379 },
-      ttl: 6,
+      ttl: 5,
     }),
     HttpModule.register({}),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [

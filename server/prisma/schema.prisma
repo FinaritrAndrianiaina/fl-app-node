@@ -11,11 +11,20 @@ datasource db {
 }
 
 model Todo {
-  id     String   @id @unique @default(uuid())
-  isDone Boolean? @default(false)
-  tasks  String
+  id      String   @id @unique @default(uuid())
+  isDone  Boolean? @default(false)
+  task    String
+  author  User     @relation(fields: [userEmail], references: [email])
+  userEmail String
 }
 
-model Profile {
-    sub String @id @unique
+model User {
+  sub            String   @unique
+  nickname       String
+  name           String
+  picture        String
+  updated_at     DateTime
+  email          String   @unique @id
+  email_verified Boolean
+  todos          Todo[]
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Todo } from '@prisma/client';
 
@@ -14,7 +14,17 @@ export class TodoService {
     return this.prismaService.todo.update({ where: { id }, data: data });
   }
 
-  async saveTodo(data: Todo) {
-    return this.prismaService.todo.create({ data });
+  private logger = new Logger('TODO');
+
+  async saveTodo(data, user) {
+    this.logger.debug(data, user);
+    return this.prismaService.todo.create({
+      data: {
+        ...data,
+        author: {
+          connect: { email: user.email },
+        },
+      },
+    });
   }
 }
